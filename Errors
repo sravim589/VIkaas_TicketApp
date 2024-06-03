@@ -1,0 +1,2 @@
+// if firebase creation error - firebaseConfig file is not created , not properly imported
+// if firebase imported error- remove node modules, reinstall from  npm install command

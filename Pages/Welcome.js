@@ -9,7 +9,7 @@ export default function Welcome({navigation}) {
 
   return (
     <View style={styles.main}>
-      <Image source={require("../assetsApp/Saly-15_1.png")} 
+      <Image source={require("../assets/assetsApp/Saly-15_1.png")} 
       style={styles.image}/>
       <TouchableOpacity style={styles.welcomeButton}>
         <Text style={styles.buttonText} onPress={pressHandler}>Welcome to Impressions</Text>

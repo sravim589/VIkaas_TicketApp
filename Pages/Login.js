@@ -1,49 +1,78 @@
-import React, { useState } from "react";
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { RadioButton } from "react-native-paper";
+import firebase from "../firebaseConfig";
 
-export default function Login({navigation}) {
+export default function Login({ navigation }) {
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [users, setUsers] = useState([]);
   const [confirm, setConfirm] = useState("");
 
-  const signInHandler = () => {
-    setConfirm("hello");
+  const usersPhoneNumber = firebase.firestore().collection("users");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const querySnapshot = await usersPhoneNumber.get();
+      const fetchedUsersNum = [];
+      querySnapshot.forEach((doc) => {
+        const { phoneNumber } = doc.data();
+        fetchedUsersNum.push({
+          id: doc.id,
+          phoneNumber,
+        });
+      });
+      setUsers(fetchedUsersNum);
+    };
+    fetchData();
+  }, []);
+
+  const inputHandler = (value) => {
+    // we have asssign some variable to store update value
+    setPhoneNumber(value);
+  };
+
+  const signInButtonHandler = () => {
+    const userExists = users.some((user) => user.phoneNumber === phoneNumber); // javascript method some() method is used to check if at least one element in the users array
+    if (userExists) {
+      setConfirm("number is registered");
+      console.log("number is registered");
+    } else {
+      console.log("phone number is not registered");
+    }
   };
 
   const sendOtpHandler = () => {
     navigation.navigate("fetch Screen");
-    setConfirm("hello");
   };
 
   return (
     <View style={styles.main}>
       {/* IMAGE SECTION */}
-      <Image source={require("../assetsApp/impressions_logo.webp")} style={styles.image} />
+      <Image source={require("../assets/assetsApp/impressions_logo.webp")} style={styles.image} />
 
       {/* HEADER TEXT SECTION */}
 
       {!confirm ? (
         <>
           {/* LOGIN SCREEN */}
-            <Text style={styles.textSign}>Sign In</Text>
-            <Text style={styles.text}>Enter mobile number to continue</Text>
+          <Text style={styles.textSign}>Sign In</Text>
+          <Text style={styles.text}>Enter mobile number to continue</Text>
 
-            {/* INPUT SECTION */}
-            <TextInput style={styles.textInput}>
-              <Text style={styles.code}>+91</Text>
-            </TextInput>
+          {/* INPUT SECTION */}
+          <TextInput style={styles.textInput} value={phoneNumber} onChangeText={inputHandler} />
 
-            {/* RADIO SECTION */}
-            <View style={styles.radioSection}>
-              <RadioButton style={styles.radio} />
-              <Text style={styles.radioText}>I agree to terms of use and Privacy Policy of Impressions Services Pvt Ltd.</Text>
-            </View>
+          {/* RADIO SECTION */}
+          <View style={styles.radioSection}>
+            <RadioButton style={styles.radio} />
+            <Text style={styles.radioText}>I agree to terms of use and Privacy Policy of Impressions Services Pvt Ltd.</Text>
+          </View>
 
-            {/*   BUTTON  SECTION*/}
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText} onPress={signInHandler}>
-                Send OTP
-              </Text>
-            </TouchableOpacity>
+          {/*   BUTTON  SECTION*/}
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText} onPress={signInButtonHandler}>
+              Send OTP
+            </Text>
+          </TouchableOpacity>
         </>
       ) : (
         <>

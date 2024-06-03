@@ -1,6 +1,6 @@
 import { View, Text, FlatList, StyleSheet, Pressable } from "react-native";
 import React, { useState, useEffect } from "react";
-import firebase from '../firebaseConfig';
+import firebase from "../firebaseConfig";
 
 const Fetch = () => {
   const [users, setUsers] = useState([]);
@@ -27,14 +27,14 @@ const Fetch = () => {
   return (
     <View style={{ flex: 10, marginTop: 100 }}>
       <FlatList
-        style={{ height: '100%' }}
+        style={{ height: "100%" }}
         data={users}
         numColumns={1}
         renderItem={({ item }) => (
-          <Pressable style={styles.container}>
-            <View style={styles.innerContainer}>
-              <Text style={styles.itemHeading}>{item.name}</Text>
-              <Text style={styles.itemHeading}>{item.phoneNumber}</Text>
+          <Pressable>
+            <View>
+              <Text>{item.name}</Text>
+              <Text>{item.phoneNumber}</Text>
             </View>
           </Pressable>
         )}
