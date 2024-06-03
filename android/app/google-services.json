@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "824959723511",
+    "project_id": "vikaas-a5e16",
+    "storage_bucket": "vikaas-a5e16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824959723511:android:cd183ea40bb49381de70f2",
+        "android_client_info": {
+          "package_name": "com.imps.vikaas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH3LyWOIJug0ystGUgZrip-x2mxSZ2uQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
