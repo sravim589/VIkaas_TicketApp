@@ -39,7 +39,7 @@ export default function NewTicket({ route, navigation }) {
   const submit = async () => {
     try {
       await firestore()
-        .collection("users")
+        .collection("ticketData")
         .doc(uid)
         .set({
           ticketData,

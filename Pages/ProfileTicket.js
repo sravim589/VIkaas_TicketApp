@@ -9,7 +9,7 @@ export default function ProfileTicket({ navigation, route }) {
   };
 
   const newTicketButton = () => {
-    navigation.navigate("NewTicket Screen", { uid: uid});
+    navigation.navigate("NewTicket Screen", { phoneNumber: phoneNumber, uid: uid});
   };
 
   return (

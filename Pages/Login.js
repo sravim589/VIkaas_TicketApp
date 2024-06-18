@@ -31,23 +31,6 @@ export default function Login({ navigation }) {
     fetchData();
   }, []);
 
-  // RESEND OTP FUNCTIONALITY
-  useEffect(() => {
-    let timer;
-    if (resendTimeout > 0 && !canResend) {
-      timer = setTimeout(() => setResendTimeout(resendTimeout - 1), 3000);
-    } else if (resendTimeout === 0) {
-      setCanResend(true);
-    }
-    return () => clearTimeout(timer);
-  }, [resendTimeout, canResend]);
-
-  // RADIO CHECK
-  const RadioHandler = () => {
-    setRadioCheck(!radioCheck);
-    setButtonDisabled(false);
-  };
-
   // INPUTFIELD VALIDATION
   const inputHandler = (value) => {
     //value- represents current value
@@ -90,12 +73,18 @@ export default function Login({ navigation }) {
     }
   };
 
+  // RADIO CHECK
+  const RadioHandler = () => {
+    setRadioCheck(!radioCheck);
+    setButtonDisabled(false);
+  };
+
   // VERIFY BUTTON
   const VerifyOTPHandler = async () => {
     try {
       const userCredential = await confirm.confirm(code);
       const user = userCredential.user;
-      const userDocument = await firestore().collection("users").doc(user.uid).get();
+      await firestore().collection("users").doc(user.uid).get();
       navigation.navigate("ProfileTicket Screen", { phoneNumber: phoneNumber, uid: user.uid });
     } catch (error) {
       console.log(error, "Invalid Code");
@@ -117,7 +106,7 @@ export default function Login({ navigation }) {
     }
   };
 
-  ////RESEND BUTTON FUNCTIONALITY
+  //WRONG NUMBER BUTTON FUNCTIONALITY
   const wrongNumberhandler = () => {
     console.log("Otp Code");
     navigation.goBack("Login Screen");
@@ -127,6 +116,7 @@ export default function Login({ navigation }) {
     <View style={styles.main}>
       <Image source={require("../assets/assetsApp/impressions_logo.webp")} style={styles.image} />
       {!confirm ? (
+        //SIGNIN SCREEN
         <>
           <Text style={styles.textSign}>Sign In</Text>
           <Text style={styles.text}>Enter mobile number to continue</Text>
@@ -141,6 +131,7 @@ export default function Login({ navigation }) {
           </TouchableOpacity>
         </>
       ) : (
+        //OTP SCREEN
         <>
           <View>
             <View style={styles.viewEntertext}>
@@ -149,7 +140,6 @@ export default function Login({ navigation }) {
             <TextInput style={styles.textInputCode} placeholder="Enter OTP" value={code} onChangeText={setCode} keyboardType="numeric" maxLength={6} />
 
             <View>
-              {/* <Text>timer</Text> */}
               <Text style={styles.wrongNumber} onPress={wrongNumberhandler}>
                 wrong number ?
               </Text>

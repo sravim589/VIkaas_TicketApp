@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, StyleSheet, Pressable, TextInput, Button, Image } from "react-native";
+import { View, Text, FlatList, StyleSheet, Pressable, TextInput, Button, Image, ScrollView } from "react-native";
 import { firebase } from "@react-native-firebase/firestore";
 
 const ViewProfile = ({ route }) => {
@@ -38,9 +38,9 @@ const ViewProfile = ({ route }) => {
         renderItem={({ item }) => (
           <Pressable>
             <View style={styles.innerContainer}>
-              <TextInput style={styles.textInput} value={item.name} placeholder="Name" placeholderTextColor="#888" />
-              <TextInput style={styles.textInput} value={item.designation} placeholder="Designation" placeholderTextColor="#888" />
-              <TextInput style={styles.textInput} value={item.usertype} placeholder="User Type" placeholderTextColor="#888" />
+              <TextInput style={styles.textInput} value={item.name} placeholder="Name" placeholderTextColor="#888" editable={false} />
+              <TextInput style={styles.textInput} value={item.designation} placeholder="Designation" placeholderTextColor="#888" editable={false} />
+              <TextInput style={styles.textInput} value={item.usertype} placeholder="User Type" placeholderTextColor="#888" editable={false} />
             </View>
           </Pressable>
         )}

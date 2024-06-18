@@ -1,6 +1,0 @@
-git init
-git status
-git add -A
-git commit -m 'first commit'
-git remote add orgion http...
-git push - u origion main
