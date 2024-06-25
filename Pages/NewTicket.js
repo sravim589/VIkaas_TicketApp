@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from "react-native";
 import { TextInput } from "react-native-paper";
-// import { launchImageLibrary } from "react-native-image-picker"; // Ensure this is correctly imported
+import { launchImageLibrary } from "react-native-image-picker"; // Ensure this is correctly imported
 import { firestore } from "../firebaseConfig";
 
 export default function NewTicket({ route, navigation }) {
