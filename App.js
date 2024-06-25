@@ -8,7 +8,8 @@ import ProfileTicket from "./Pages/ProfileTicket";
 import ViewProfile from "./Pages/ViewProfile";
 import NewTicket from "./Pages/NewTicket";
 
-export default function App() {
+
+function App() {
   const Stack = createNativeStackNavigator(); // stack is an object.
 
   return (
@@ -26,3 +27,5 @@ export default function App() {
     </>
   );
 }
+
+export default App;

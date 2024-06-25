@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from "react-native";
 import { TextInput } from "react-native-paper";
-import ImagePicker from "react-native-image-picker";
-
+// import { launchImageLibrary } from "react-native-image-picker"; // Ensure this is correctly imported
 import { firestore } from "../firebaseConfig";
 
 export default function NewTicket({ route, navigation }) {
@@ -17,26 +16,25 @@ export default function NewTicket({ route, navigation }) {
   const selectImage = () => {
     console.log("select image");
     const options = {
-      title: "Select Image",
-      storageOptions: {
-        skipBackup: true,
-        path: "images",
-      },
+      mediaType: "photo",
+      includeBase64: false,
     };
 
-    ImagePicker.showImagePicker(options, (response) => {
+    launchImageLibrary(options, (response) => {
       if (response.didCancel) {
         console.log("User cancelled image picker");
-      } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
-      } else {
-        const source = { uri: response.uri };
+      } else if (response.errorCode) {
+        console.log("ImagePicker Error: ", response.errorMessage);
+      } else if (response.assets && response.assets.length > 0) {
+        const source = { uri: response.assets[0].uri };
         setImage(source);
       }
     });
   };
 
   const submit = async () => {
+    console.log("hello");
+
     try {
       await firestore()
         .collection("ticketData")
@@ -48,10 +46,10 @@ export default function NewTicket({ route, navigation }) {
       console.log("submitted");
       Alert.alert(
         "Submitted",
-        "your ticket has been submitted succesfully!",
+        "Your ticket has been submitted successfully!",
         [
           {
-            text: "ok",
+            text: "OK",
             onPress: () => navigation.goBack(),
           },
         ],

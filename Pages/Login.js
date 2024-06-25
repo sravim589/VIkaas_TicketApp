@@ -121,7 +121,9 @@ export default function Login({ navigation }) {
           <Text style={styles.textSign}>Sign In</Text>
           <Text style={styles.text}>Enter mobile number to continue</Text>
           <TextInput style={styles.textInput} value={phoneNumber} onChangeText={inputHandler} keyboardType="numeric" maxLength={13} />
-          {error ? <Text style={styles.errorText}>{error}</Text> : null}
+          {/* {error ? <Text style={styles.errorText}>{error}</Text> : null} */}
+          {error && <Text style={styles.errorText}>{error}</Text>}
+
           <View style={styles.radioSection}>
             <RadioButton color="#39d2c0" style={styles.radio} value="agree" status={radioCheck ? "checked" : "unchecked"} onPress={RadioHandler} />
             <Text style={styles.radioText}>I agree to terms of use and Privacy Policy of Impressions Services Pvt Ltd.</Text>
